@@ -1,0 +1,202 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors */
+  --color-primary: #2563EB;
+  --color-primary-hover: #1D4ED8;
+  --color-primary-light: #EFF6FF;
+  --color-accent: #3B82F6;
+  --color-indigo: #6366F1;
+
+  /* Backgrounds */
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F8FAFC;
+  --color-bg-card: #FFFFFF;
+
+  /* Text */
+  --color-heading: #0F172A;
+  --color-body: #475569;
+  --color-muted: #94A3B8;
+
+  /* Borders */
+  --color-border: #E2E8F0;
+  --color-border-strong: #CBD5E1;
+
+  /* Highlight */
+  --color-highlight: #F59E0B;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: #FFFFFF;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: #475569;
+    background-color: #FFFFFF;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: #0F172A;
+    line-height: 1.2;
+  }
+
+  ::selection {
+    background-color: #2563EB;
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid #2563EB;
+    outline-offset: 2px;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #E2E8F0 transparent;
+  }
+}
+
+@layer components {
+
+  /* ─── Sections ─────────────────────────── */
+  .section-white {
+    background-color: #FFFFFF;
+    padding: 6rem 1.5rem;
+  }
+  .section-gray {
+    background-color: #F8FAFC;
+    padding: 6rem 1.5rem;
+  }
+  .luxury-padding {
+    padding: 6rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-white, .section-gray, .luxury-padding { padding: 8rem 2rem; }
+  }
+  @media (min-width: 1024px) {
+    .section-white, .section-gray, .luxury-padding { padding: 9rem 3rem; }
+  }
+
+  /* ─── Cards ────────────────────────────── */
+  .premium-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 20px;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .premium-card:hover {
+    border-color: rgba(37, 99, 235, 0.25);
+    box-shadow: 0 12px 32px -8px rgba(37,99,235,0.10);
+    transform: translateY(-3px);
+  }
+
+  /* Luxury glass — now light themed */
+  .luxury-glass {
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 20px;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .luxury-glass:hover {
+    border-color: rgba(37, 99, 235, 0.25);
+    box-shadow: 0 12px 32px -8px rgba(37,99,235,0.10);
+    transform: translateY(-3px);
+  }
+
+  /* ─── Buttons ───────────────────────────── */
+  .btn-premium,
+  .btn-luxury {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2.25rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #ffffff;
+    background-color: #2563EB;
+    border-radius: 12px;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.30);
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+  }
+  .btn-premium:hover,
+  .btn-luxury:hover {
+    background-color: #1D4ED8;
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.40);
+    transform: translateY(-1px);
+    color: #ffffff;
+  }
+
+  .btn-premium-secondary,
+  .btn-luxury-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2.25rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #0F172A;
+    background-color: #F1F5F9;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .btn-premium-secondary:hover,
+  .btn-luxury-secondary:hover {
+    background-color: #E2E8F0;
+    border-color: #CBD5E1;
+    transform: translateY(-1px);
+    color: #0F172A;
+  }
+
+  /* ─── Icon Boxes ────────────────────────── */
+  .icon-box {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 12px;
+    background-color: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2563EB;
+    flex-shrink: 0;
+  }
+
+  /* ─── Badge / Label ─────────────────────── */
+  .section-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #2563EB;
+    background-color: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    padding: 0.35rem 1rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+  }
+}
