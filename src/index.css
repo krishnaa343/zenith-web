@@ -1,202 +1,196 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand Colors */
-  --color-primary: #2563EB;
-  --color-primary-hover: #1D4ED8;
-  --color-primary-light: #EFF6FF;
-  --color-accent: #3B82F6;
-  --color-indigo: #6366F1;
+  /* Brand Colors - Rich Editorial */
+  --color-primary: #111111;
+  --color-primary-hover: #333333;
+  --color-accent: #111111;
+  --color-accent-hover: #000000;
 
   /* Backgrounds */
-  --color-bg-primary: #FFFFFF;
-  --color-bg-secondary: #F8FAFC;
+  --color-bg-primary: #F4F4F2; /* Very soft warm gray/off-white */
+  --color-bg-secondary: #EBEBE9;
   --color-bg-card: #FFFFFF;
 
   /* Text */
-  --color-heading: #0F172A;
-  --color-body: #475569;
-  --color-muted: #94A3B8;
+  --color-heading: #111111;
+  --color-body: #555555;
+  --color-muted: #888888;
 
   /* Borders */
-  --color-border: #E2E8F0;
-  --color-border-strong: #CBD5E1;
-
-  /* Highlight */
-  --color-highlight: #F59E0B;
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-strong: rgba(0, 0, 0, 0.15);
 
   /* Typography */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    background-color: #FFFFFF;
+    background-color: var(--color-bg-primary);
   }
 
   body {
     font-family: var(--font-sans);
-    color: #475569;
-    background-color: #FFFFFF;
+    color: var(--color-body);
+    background-color: var(--color-bg-primary);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
-    color: #0F172A;
-    line-height: 1.2;
+    font-family: var(--font-sans); /* Defaulting headings to sans for the mixed look */
+    color: var(--color-heading);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
   }
 
   ::selection {
-    background-color: #2563EB;
+    background-color: var(--color-primary);
     color: #ffffff;
   }
 
   :focus-visible {
-    outline: 2px solid #2563EB;
+    outline: 2px solid var(--color-primary);
     outline-offset: 2px;
-  }
-
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: #E2E8F0 transparent;
   }
 }
 
 @layer components {
 
-  /* ─── Sections ─────────────────────────── */
-  .section-white {
-    background-color: #FFFFFF;
+  /* ─── Layout ───────────────────────────── */
+  .section-container {
     padding: 6rem 1.5rem;
-  }
-  .section-gray {
-    background-color: #F8FAFC;
-    padding: 6rem 1.5rem;
-  }
-  .luxury-padding {
-    padding: 6rem 1.5rem;
+    background-color: transparent;
   }
 
   @media (min-width: 768px) {
-    .section-white, .section-gray, .luxury-padding { padding: 8rem 2rem; }
+    .section-container { padding: 8rem 2rem; }
   }
   @media (min-width: 1024px) {
-    .section-white, .section-gray, .luxury-padding { padding: 9rem 3rem; }
+    .section-container { padding: 10rem 3rem; }
   }
 
   /* ─── Cards ────────────────────────────── */
-  .premium-card {
-    background-color: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 20px;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-  }
-  .premium-card:hover {
-    border-color: rgba(37, 99, 235, 0.25);
-    box-shadow: 0 12px 32px -8px rgba(37,99,235,0.10);
-    transform: translateY(-3px);
-  }
-
-  /* Luxury glass — now light themed */
-  .luxury-glass {
-    background-color: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 20px;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-  }
-  .luxury-glass:hover {
-    border-color: rgba(37, 99, 235, 0.25);
-    box-shadow: 0 12px 32px -8px rgba(37,99,235,0.10);
-    transform: translateY(-3px);
-  }
-
-  /* ─── Buttons ───────────────────────────── */
-  .btn-premium,
-  .btn-luxury {
+  .bento-card {
+    background-color: var(--color-bg-card);
+    border-radius: 2.5rem; /* Very rounded corners like the screenshots */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04); 
+    overflow: hidden;
     position: relative;
+    border: 1px solid var(--color-border);
+  }
+  
+  .bento-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+  }
+
+  /* ─── Glassmorphism ─────────────────────── */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  }
+
+  /* ─── Buttons & Pill Tabs ───────────────────────────── */
+  .btn-primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 0.875rem 2.25rem;
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.875rem;
+    padding: 1rem 2rem;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.95rem;
     color: #ffffff;
-    background-color: #2563EB;
-    border-radius: 12px;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.30);
+    background-color: var(--color-primary);
+    border-radius: 9999px; /* Perfect pill */
+    transition: all 0.3s ease;
     cursor: pointer;
     text-decoration: none;
-    border: none;
+    border: 1px solid var(--color-primary);
   }
-  .btn-premium:hover,
-  .btn-luxury:hover {
-    background-color: #1D4ED8;
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.40);
-    transform: translateY(-1px);
-    color: #ffffff;
+  .btn-primary:hover {
+    background-color: transparent;
+    color: var(--color-primary);
   }
 
-  .btn-premium-secondary,
-  .btn-luxury-secondary {
+  .btn-secondary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 0.875rem 2.25rem;
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.875rem;
-    color: #0F172A;
-    background-color: #F1F5F9;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
-    transition: all 0.25s ease;
+    padding: 1rem 2rem;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--color-primary);
+    background-color: transparent;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 9999px;
+    transition: all 0.3s ease;
     cursor: pointer;
     text-decoration: none;
   }
-  .btn-premium-secondary:hover,
-  .btn-luxury-secondary:hover {
-    background-color: #E2E8F0;
-    border-color: #CBD5E1;
-    transform: translateY(-1px);
-    color: #0F172A;
+  .btn-secondary:hover {
+    background-color: var(--color-bg-secondary);
+    border-color: var(--color-primary);
   }
 
-  /* ─── Icon Boxes ────────────────────────── */
-  .icon-box {
-    width: 2.75rem;
-    height: 2.75rem;
-    border-radius: 12px;
-    background-color: #EFF6FF;
-    border: 1px solid #BFDBFE;
+  /* Navbar specific pills */
+  .nav-pill {
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    color: var(--color-primary);
+  }
+  .nav-pill:hover {
+    background-color: rgba(0,0,0,0.05);
+  }
+  .nav-pill.active {
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+
+  /* ─── Circular Icon Button ────────────────── */
+  .icon-circle {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #2563EB;
-    flex-shrink: 0;
+    color: var(--color-primary);
+    transition: all 0.3s ease;
   }
-
-  /* ─── Badge / Label ─────────────────────── */
-  .section-badge {
-    display: inline-block;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #2563EB;
-    background-color: #EFF6FF;
-    border: 1px solid #BFDBFE;
-    padding: 0.35rem 1rem;
+  
+  /* ─── Badge ─────────────────────── */
+  .badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    padding: 0.375rem 1rem;
     border-radius: 9999px;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
 }
+
+

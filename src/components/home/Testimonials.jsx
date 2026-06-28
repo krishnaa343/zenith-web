@@ -1,19 +1,22 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Star } from 'lucide-react';
-import SectionHeader from '../common/SectionHeader';
 import { TESTIMONIALS } from '../../utils/constants';
 import { fadeInUp, staggerContainer } from '../../utils/animations';
 
 export default function Testimonials() {
   return (
-    <section className="section-gray select-none">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        <SectionHeader
-          label="Proven Results"
-          title="What Client Partnerships Deliver"
-          subtitle="Read honest feedback from operations officers and business leaders who trust us with their design and search presence."
-        />
+    <section className="bg-[var(--color-bg-secondary)] py-24 sm:py-32 relative overflow-hidden">
+      <div className="max-w-[90rem] mx-auto px-6 sm:px-8 lg:px-16 relative z-10">
+        
+        <div className="mb-24 max-w-4xl">
+          <div className="badge-pill mb-6">
+            Client Success
+          </div>
+          <h2 className="text-4xl md:text-6xl font-sans font-medium text-[var(--color-primary)] leading-[1.05] tracking-tight mb-6">
+            Don't just take <br />
+            <span className="font-display italic font-normal">our word for it.</span>
+          </h2>
+        </div>
 
         <motion.div
           variants={staggerContainer}
@@ -26,27 +29,24 @@ export default function Testimonials() {
             <motion.div
               key={i}
               variants={fadeInUp}
-              className="premium-card p-8 flex flex-col justify-between"
+              className="bento-card p-10 flex flex-col group bg-[var(--color-bg-primary)] border-none shadow-none"
             >
-              <div className="space-y-5">
-                {/* Rating */}
-                <div className="flex gap-1">
-                  {[...Array(item.rating)].map((_, idx) => (
-                    <Star key={idx} className="text-amber-400 fill-amber-400" size={15} />
-                  ))}
-                </div>
-                <p className="text-sm italic text-slate-600 leading-relaxed">
-                  &ldquo;{item.text}&rdquo;
-                </p>
-              </div>
+              <p className="text-[1.1rem] font-sans text-[var(--color-primary)] leading-relaxed flex-grow font-medium mb-12">
+                "{item.text}"
+              </p>
 
-              <div className="mt-7 border-t border-slate-100 pt-5 flex flex-col">
-                <span className="text-xs font-bold text-slate-900 uppercase tracking-wider">
-                  {item.name}
-                </span>
-                <span className="text-[11px] text-slate-400 tracking-wider uppercase mt-1">
-                  {item.company}
-                </span>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-white border border-[var(--color-border)] flex items-center justify-center text-[var(--color-primary)] font-display italic text-lg">
+                  {item.name.charAt(0)}
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[1rem] font-sans font-medium text-[var(--color-primary)]">
+                    {item.name}
+                  </span>
+                  <span className="text-[0.85rem] font-sans text-[var(--color-muted)]">
+                    {item.company}
+                  </span>
+                </div>
               </div>
             </motion.div>
           ))}
