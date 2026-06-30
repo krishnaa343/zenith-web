@@ -36,7 +36,7 @@ export default function HomeCTA() {
           <span className="overline !text-white/50">Have a project in mind?</span>
         </Reveal>
 
-        <h2 className="mt-8 text-[clamp(2.75rem,9vw,9rem)] leading-[0.9] tracking-[-0.045em] font-medium">
+        <h2 className="mt-8 text-[clamp(2.75rem,9vw,9rem)] leading-[0.9] tracking-[-0.045em] font-medium text-white">
           <MaskReveal>Let&apos;s build</MaskReveal>
           <MaskReveal delay={0.08}>something <span className="serif-italic font-normal">exceptional.</span></MaskReveal>
         </h2>

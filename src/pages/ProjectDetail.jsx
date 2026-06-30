@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import SEOHead from '../components/common/SEOHead';
@@ -16,14 +16,9 @@ export default function ProjectDetail() {
   const { id } = useParams();
   const project = PORTFOLIO_PROJECTS.find((p) => p.id === parseInt(id, 10));
 
+  // Unknown project id → send the visitor home.
   if (!project) {
-    return (
-      <div className="min-h-screen bg-[var(--color-bg-primary)] flex flex-col items-center justify-center px-6 text-center">
-        <h1 className="text-4xl font-medium text-[var(--color-ink)] mb-4">Case study not found</h1>
-        <p className="text-[var(--color-body)] mb-8">The project you’re looking for doesn’t exist.</p>
-        <Link to="/portfolio" className="btn-primary"><ArrowLeft size={16} /> Back to work</Link>
-      </div>
-    );
+    return <Navigate to="/" replace />;
   }
 
   const blocks = [

@@ -23,7 +23,7 @@ export default function CTASection({
           <span className="overline !text-white/45">{eyebrow}</span>
         </Reveal>
 
-        <h2 className="mt-8 text-[clamp(2.25rem,7.5vw,7rem)] leading-[0.92] tracking-[-0.045em] font-medium">
+        <h2 className="mt-8 text-[clamp(2.25rem,7.5vw,7rem)] leading-[0.92] tracking-[-0.045em] font-medium text-white">
           {titleLines.map((line, i) => (
             <MaskReveal key={i} delay={i * 0.08}>{line}</MaskReveal>
           ))}

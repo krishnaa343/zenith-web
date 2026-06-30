@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import MainLayout from '../layouts/MainLayout';
 import Loader from '../components/common/Loader';
@@ -17,7 +17,6 @@ const Process = lazy(() => import('../pages/Process'));
 const Pricing = lazy(() => import('../pages/Pricing'));
 const FAQ = lazy(() => import('../pages/FAQ'));
 const Contact = lazy(() => import('../pages/Contact'));
-const NotFound = lazy(() => import('../pages/NotFound'));
 
 export default function AppRouter() {
   useScrollToTop();
@@ -44,7 +43,8 @@ export default function AppRouter() {
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/faqs" element={<FAQ />} />
             <Route path="/contact" element={<Contact addToast={addToast} />} />
-            <Route path="*" element={<NotFound />} />
+            {/* Any unknown URL falls back to the home page */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </AnimatePresence>
       </Suspense>
