@@ -13,7 +13,7 @@ const fieldBase =
 
 export default function Contact({ addToast }) {
   const [formData, setFormData] = useState({
-    name: '', businessName: '', email: '', phone: '', service: 'Website Design', message: '',
+    name: '', businessName: '', email: '', service: 'Website Design', message: '',
   });
   const [errors, setErrors] = useState({});
 
@@ -40,12 +40,11 @@ export default function Contact({ addToast }) {
       return;
     }
     addToast?.('Message received — we’ll reply within 24 hours.', 'success');
-    setFormData({ name: '', businessName: '', email: '', phone: '', service: 'Website Design', message: '' });
+    setFormData({ name: '', businessName: '', email: '', service: 'Website Design', message: '' });
   };
 
   const details = [
     { label: 'Email', value: COMPANY.email, href: `mailto:${COMPANY.email}` },
-    { label: 'Phone', value: COMPANY.phone, href: `tel:${COMPANY.phone}` },
     { label: 'Studio', value: COMPANY.address },
     { label: 'Hours', value: COMPANY.hours },
   ];
@@ -85,10 +84,6 @@ export default function Contact({ addToast }) {
                   <label htmlFor="email" className="overline block mb-2">Email *</label>
                   <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="jane@acme.com" className={fieldBase} />
                   {errors.email && <span className="text-sm text-[var(--color-ink)]/60 mt-2 block">{errors.email}</span>}
-                </div>
-                <div>
-                  <label htmlFor="phone" className="overline block mb-2">Phone</label>
-                  <input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} placeholder="+1 (555) 123-4567" className={fieldBase} />
                 </div>
               </div>
 

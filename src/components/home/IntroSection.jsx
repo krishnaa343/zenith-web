@@ -8,7 +8,7 @@ import MaskReveal from '../fx/MaskReveal';
 import Counter from '../fx/Counter';
 
 const STATS = [
-  { value: 50, suffix: '+', label: 'Projects shipped' },
+  { value: 27, suffix: '+', label: 'Projects shipped' },
   { value: 2, suffix: '+', label: 'Years of working' },
   { value: 2.5, suffix: 'x', decimals: 1, label: 'Average ROI' },
   { value: null, display: '24/7', label: 'Active support' },
