@@ -2,7 +2,6 @@ import React from 'react';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import BackToTop from '../components/common/BackToTop';
-import CookieNotice from '../components/common/CookieNotice';
 import Toast from '../components/common/Toast';
 import SmoothScroll from '../components/fx/SmoothScroll';
 import CustomCursor from '../components/fx/CustomCursor';
@@ -20,7 +19,6 @@ export default function MainLayout({ children, isDark, toggleDarkMode, toasts, r
       </main>
       <Footer />
       <BackToTop />
-      <CookieNotice />
       <Toast toasts={toasts} removeToast={removeToast} />
     </div>
   );
