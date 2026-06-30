@@ -1,34 +1,35 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { fadeInUp } from '../../utils/animations';
+import Reveal from '../fx/Reveal';
+import MaskReveal from '../fx/MaskReveal';
 
-export default function SectionHeader({
-  label,
-  title,
-  subtitle,
-  centered = true,
-}) {
+/**
+ * Monochrome editorial section intro. `title` may be a string or node(s).
+ * Pass an array to `titleLines` for masked multi-line reveals.
+ */
+export default function SectionHeader({ label, title, titleLines, subtitle, align = 'left', dark = false }) {
+  const alignClass = align === 'center' ? 'text-center mx-auto items-center' : 'text-left';
+  const inkClass = dark ? 'text-white' : 'text-[var(--color-ink)]';
+  const subClass = dark ? 'text-white/60' : 'text-[var(--color-body)]';
+
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      variants={fadeInUp}
-      className={`max-w-4xl mb-16 md:mb-20 ${centered ? 'text-center mx-auto' : 'text-left'}`}
-    >
+    <div className={`flex flex-col max-w-3xl mb-14 sm:mb-20 ${alignClass}`}>
       {label && (
-        <span className="inline-block text-xs font-bold tracking-widest uppercase mb-4 text-[#38BDF8] bg-[rgba(56,189,248,0.1)] px-4 py-2 rounded-full border border-[rgba(56,189,248,0.2)] backdrop-blur-sm">
-          {label}
-        </span>
+        <Reveal variant="fade">
+          <span className={`overline ${dark ? '!text-white/45' : ''}`}>{label}</span>
+        </Reveal>
       )}
-      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-5">
-        {title}
+      <h2 className={`mt-6 text-[clamp(2rem,5vw,4.5rem)] leading-[0.98] tracking-[-0.04em] font-medium ${inkClass}`}>
+        {titleLines
+          ? titleLines.map((l, i) => <MaskReveal key={i} delay={i * 0.08}>{l}</MaskReveal>)
+          : title}
       </h2>
       {subtitle && (
-        <p className="text-sm sm:text-base text-gray-400 leading-relaxed font-light max-w-3xl mx-auto">
-          {subtitle}
-        </p>
+        <Reveal variant="up" delay={0.15}>
+          <p className={`mt-6 text-lg leading-relaxed ${subClass} ${align === 'center' ? 'max-w-2xl mx-auto' : 'max-w-xl'}`}>
+            {subtitle}
+          </p>
+        </Reveal>
       )}
-    </motion.div>
+    </div>
   );
 }

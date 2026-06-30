@@ -1,168 +1,101 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowUpRight, Cpu, Target, Layers } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import SEOHead from '../components/common/SEOHead';
+import CTASection from '../components/common/CTASection';
+import Reveal from '../components/fx/Reveal';
+import MaskReveal from '../components/fx/MaskReveal';
 import { PORTFOLIO_PROJECTS } from '../utils/constants';
-import { pageTransition, fadeInUp } from '../utils/animations';
+import { projectImage } from '../utils/projectImages';
+import { pageTransition } from '../utils/animations';
+
+const imageMask = { hidden: { y: '101%' }, show: { y: 0 } };
 
 export default function ProjectDetail() {
   const { id } = useParams();
-  const project = PORTFOLIO_PROJECTS.find(p => p.id === parseInt(id));
+  const project = PORTFOLIO_PROJECTS.find((p) => p.id === parseInt(id, 10));
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-white flex flex-col items-center justify-center pt-24 px-6 text-center select-none">
-        <h1 className="text-3xl font-black mb-4 text-slate-900">Case Study Not Found</h1>
-        <p className="text-slate-500 text-sm mb-6">The requested project case study could not be located.</p>
-        <Link to="/portfolio" className="btn-premium py-2.5 px-6 rounded-xl text-xs inline-flex items-center gap-2">
-          <ArrowLeft size={14} /> Back to Portfolio
-        </Link>
+      <div className="min-h-screen bg-[var(--color-bg-primary)] flex flex-col items-center justify-center px-6 text-center">
+        <h1 className="text-4xl font-medium text-[var(--color-ink)] mb-4">Case study not found</h1>
+        <p className="text-[var(--color-body)] mb-8">The project you’re looking for doesn’t exist.</p>
+        <Link to="/portfolio" className="btn-primary"><ArrowLeft size={16} /> Back to work</Link>
       </div>
     );
   }
 
+  const blocks = [
+    { n: '01', label: 'The challenge', body: project.challenge },
+    { n: '02', label: 'The solution', body: project.solution },
+    { n: '03', label: 'The outcome', body: project.outcome },
+  ];
+
   return (
-    <motion.div
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={pageTransition}
-      className="bg-white min-h-screen select-none"
-    >
+    <motion.div initial="initial" animate="animate" exit="exit" variants={pageTransition} className="bg-[var(--color-bg-primary)]">
       <SEOHead
-        title={`${project.industry} Case Study — ${project.category}`}
-        description={`Read the engineering and design case study details for our custom ${project.industry} project.`}
+        title={`${project.industry} — Case Study`}
+        description={`Design and engineering case study for our custom ${project.industry} project concept.`}
       />
 
-      {/* Hero Header */}
-      <section className="relative pt-44 pb-20 overflow-hidden bg-white">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[250px] rounded-full bg-blue-100/60 blur-3xl pointer-events-none" />
-
-        <div className="max-w-4xl mx-auto px-6 space-y-6">
-          <Link
-            to="/portfolio"
-            className="inline-flex items-center gap-2 text-xs text-slate-500 hover:text-blue-600 transition-colors uppercase tracking-wider font-semibold"
-          >
-            <ArrowLeft size={14} /> Back to Portfolio
+      {/* Header */}
+      <section className="edge max-w-[100rem] mx-auto pt-40 sm:pt-52 pb-12 sm:pb-16">
+        <Reveal variant="fade" className="mb-8">
+          <Link to="/portfolio" data-cursor="hover" className="inline-flex items-center gap-2 overline hover:text-[var(--color-ink)] transition-colors">
+            <ArrowLeft size={14} /> All work
           </Link>
-
-          <div className="space-y-4">
-            <span className="section-badge">{project.category}</span>
-            <h1 className="text-4xl sm:text-6xl font-black tracking-tight leading-tight text-slate-900">
-              {project.industry} Digital Portal
-            </h1>
-            <p className="text-sm sm:text-base text-slate-500 leading-relaxed">
-              {project.overview}
-            </p>
-          </div>
-
-          {/* Tech stack badges */}
-          <div className="flex flex-wrap gap-2 pt-2">
-            {project.tech.map((tag, idx) => (
-              <span
-                key={idx}
-                className="text-[10px] font-semibold text-blue-700 bg-blue-50 border border-blue-100 px-3.5 py-1.5 rounded-full"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
+        </Reveal>
+        <Reveal variant="fade"><span className="overline">{project.category}</span></Reveal>
+        <h1 className="mt-7 display-hero text-[clamp(2.5rem,8vw,7rem)] text-[var(--color-ink)]">
+          <MaskReveal>{project.industry}</MaskReveal>
+          <MaskReveal delay={0.08}><span className="serif-italic font-normal">portal.</span></MaskReveal>
+        </h1>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-10">
+          <Reveal variant="up" delay={0.15} className="lg:col-span-7">
+            <p className="text-lg sm:text-xl text-[var(--color-body)] leading-relaxed">{project.overview}</p>
+          </Reveal>
+          <Reveal variant="up" delay={0.25} className="lg:col-span-4 lg:col-start-9">
+            <h4 className="overline mb-4">Built with</h4>
+            <div className="flex flex-wrap gap-2">
+              {project.tech.map((t, i) => (
+                <span key={i} className="badge-pill">{t}</span>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Structured Case Study Grid */}
-      <section className="pb-32 px-6 sm:px-8 lg:px-12 bg-slate-50">
-        <div className="max-w-4xl mx-auto pt-16 space-y-6">
-
-          {/* Challenge */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            className="premium-card p-8 sm:p-10 space-y-4"
-          >
-            <div className="flex items-center gap-3">
-              <div className="icon-box">
-                <Target size={18} />
-              </div>
-              <h2 className="text-base sm:text-lg font-bold text-slate-900 uppercase tracking-wider">
-                The Challenge
-              </h2>
-            </div>
-            <p className="text-sm text-slate-600 leading-relaxed pl-12">
-              {project.challenge}
-            </p>
+      {/* Hero image */}
+      <section className="edge max-w-[100rem] mx-auto pb-20 sm:pb-28">
+        <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="overflow-hidden rounded-[2rem] aspect-[16/10]">
+          <motion.div variants={imageMask} transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }} className="w-full h-full will-reveal">
+            <img src={projectImage(project.id)} alt={`${project.industry} project`} className="w-full h-full object-cover" />
           </motion.div>
+        </motion.div>
+      </section>
 
-          {/* Solution */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            className="premium-card p-8 sm:p-10 space-y-4"
-          >
-            <div className="flex items-center gap-3">
-              <div className="icon-box">
-                <Cpu size={18} />
+      {/* Case study blocks */}
+      <section className="edge max-w-[100rem] mx-auto pb-28 sm:pb-40">
+        <div className="border-t border-[var(--color-border)]">
+          {blocks.map((b) => (
+            <Reveal key={b.n} variant="up" amount={0.4} className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 py-12 sm:py-16 border-b border-[var(--color-border)]">
+              <div className="lg:col-span-4 flex items-baseline gap-5">
+                <span className="font-display italic text-3xl text-[var(--color-muted)]">{b.n}</span>
+                <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-[var(--color-ink)]">{b.label}</h2>
               </div>
-              <h2 className="text-base sm:text-lg font-bold text-slate-900 uppercase tracking-wider">
-                The Engineering Solution
-              </h2>
-            </div>
-            <p className="text-sm text-slate-600 leading-relaxed pl-12">
-              {project.solution}
-            </p>
-          </motion.div>
-
-          {/* Outcome */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            className="premium-card p-8 sm:p-10 space-y-4"
-          >
-            <div className="flex items-center gap-3">
-              <div className="icon-box">
-                <Layers size={18} />
-              </div>
-              <h2 className="text-base sm:text-lg font-bold text-slate-900 uppercase tracking-wider">
-                Strategic Outcome
-              </h2>
-            </div>
-            <p className="text-sm text-slate-600 leading-relaxed pl-12">
-              {project.outcome}
-            </p>
-          </motion.div>
-
-          {/* Bottom disclaimer */}
-          <div className="rounded-xl border border-slate-200 bg-blue-50 p-5 text-center text-xs text-slate-500 leading-relaxed">
-            Disclaimer: This project study details a design mock template generated for capabilities presentation. Actual portal builds are hosted on direct private client staging servers.
-          </div>
+              <p className="lg:col-span-7 lg:col-start-6 text-lg text-[var(--color-body)] leading-relaxed">{b.body}</p>
+            </Reveal>
+          ))}
         </div>
       </section>
 
-      {/* Case Study Bottom CTA */}
-      <section className="py-24 bg-slate-900 text-center select-none">
-        <div className="max-w-3xl mx-auto px-6 space-y-6">
-          <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">Need a Similar Experience Built?</h2>
-          <p className="text-sm text-slate-400 leading-relaxed">
-            Reach out to our agency design consulting office to explore custom sitemaps, grid mockups, and localized SEO setups.
-          </p>
-          <div className="pt-4">
-            <Link
-              to="/contact"
-              className="btn-premium py-3.5 px-8 rounded-xl text-sm inline-flex items-center gap-1.5"
-              aria-label="Contact Zenith"
-            >
-              Start Project Discovery <ArrowUpRight size={14} />
-            </Link>
-          </div>
-        </div>
-      </section>
+      <CTASection
+        eyebrow="Want one like this?"
+        titleLines={['Start your', <span key="i" className="serif-italic font-normal">case study.</span>]}
+        lede="Custom sitemaps, layouts, and localized SEO — designed around your business."
+        ctaLabel="Start a project"
+      />
     </motion.div>
   );
 }

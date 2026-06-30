@@ -7,9 +7,7 @@ export default function CookieNotice() {
   useEffect(() => {
     const accepted = localStorage.getItem('zenith-cookies-accepted');
     if (!accepted) {
-      const timer = setTimeout(() => {
-        setIsVisible(true);
-      }, 1500);
+      const timer = setTimeout(() => setIsVisible(true), 1800);
       return () => clearTimeout(timer);
     }
   }, []);
@@ -23,20 +21,22 @@ export default function CookieNotice() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 50 }}
-          className="fixed bottom-0 left-0 w-full z-50 p-6 flex items-center justify-center select-none"
+          exit={{ opacity: 0, y: 40 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="fixed bottom-4 left-0 w-full z-[60] px-4 flex justify-center select-none"
         >
-          <div className="max-w-3xl w-full bg-[#0b1020]/90 backdrop-blur-xl border border-white/5 p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-2xl">
-            <p className="text-xs text-white leading-relaxed font-light text-center sm:text-left">
-              We use cookies to improve your user experience and analyze website traffic. By using our site, you agree to our use of cookies.
+          <div className="glass-card max-w-2xl w-full p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-[var(--color-body)] leading-relaxed text-center sm:text-left">
+              We use cookies to improve your experience and analyze traffic. By using our site, you agree to our use of cookies.
             </p>
             <button
               onClick={handleAccept}
-              className="btn-luxury py-2 px-6 rounded-full text-xs cursor-pointer flex-shrink-0"
+              data-cursor="hover"
+              className="btn-primary py-2.5 px-6 text-sm shrink-0"
             >
-              Accept Consent
+              Accept
             </button>
           </div>
         </motion.div>

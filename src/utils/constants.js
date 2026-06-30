@@ -15,7 +15,6 @@ import {
   Layout,
   TrendingUp,
   FileCode,
-  Gauge,
 } from 'lucide-react';
 
 export const COMPANY = {

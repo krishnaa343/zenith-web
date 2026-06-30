@@ -3,28 +3,18 @@ import { motion } from 'framer-motion';
 
 export default function Loader() {
   return (
-    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-bg-primary text-white select-none">
-      <div className="relative flex items-center justify-center">
-        {/* Ring 1 */}
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
-          className="w-16 h-16 rounded-full border-2 border-t-accent-primary border-r-transparent border-b-highlight border-l-transparent"
-        />
-        {/* Ring 2 */}
-        <motion.div
-          animate={{ rotate: -360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-          className="absolute w-10 h-10 rounded-full border-2 border-t-highlight border-r-transparent border-b-accent-secondary border-l-transparent"
-        />
-      </div>
+    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[var(--color-bg-primary)] select-none">
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: [0.4, 1, 0.4] }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 1.4, repeat: Infinity, ease: 'linear' }}
+        className="w-12 h-12 rounded-full border border-[var(--color-border-strong)] border-t-[var(--color-ink)]"
+      />
+      <motion.div
+        animate={{ opacity: [0.3, 1, 0.3] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        className="mt-8 text-[9px] font-bold tracking-widest uppercase text-text-secondary"
+        className="mt-7 overline"
       >
-        Zenith Web Solutions
+        Zenith
       </motion.div>
     </div>
   );
